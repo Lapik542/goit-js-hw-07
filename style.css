@@ -1,0 +1,23 @@
+.gallery {
+    list-style: none;
+    display: flex;
+    gap: 10px;
+}
+
+.gallery-box {
+    width: 200px;
+    height: 200px;
+}
+
+.button {
+    border: none;
+    cursor: grab;
+    width: 100px;
+    height: 30px;
+}
+
+.block {
+    width: 20px;
+    height: 20px;
+    background-color: red;
+}
