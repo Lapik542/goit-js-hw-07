@@ -1,11 +1,8 @@
-function getRandomHexColor() {
-  return `#${Math.floor(Math.random() * 16777215)
-    .toString(16)
-    .padStart(6, '0')}`;
-}
+const getRandomHexColor = () => `#${Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0')}`;
+
+const boxesContainer = document.getElementById('boxes'); 
 
 const createBoxes = (amount) => {
-  const boxesContainer = document.getElementById('boxes');
   const baseSize = 30;
 
   for (let i = 0; i < amount; i++) {
@@ -21,12 +18,11 @@ const createBoxes = (amount) => {
 };
 
 const destroyBoxes = () => {
-  const boxesContainer = document.getElementById('boxes');
   boxesContainer.innerHTML = '';
 };
 
 document.querySelector('[data-create]').addEventListener('click', () => {
-  const inputAmount = document.querySelector('input');
+  const inputAmount = document.getElementById('inputAmount');
   const amount = Number(inputAmount.value);
 
   if (amount >= 1 && amount <= 100) {
