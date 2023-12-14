@@ -29,14 +29,17 @@ const images = [
   ];
   
   const gallery = document.querySelector('.gallery');
+  const fragment = document.createDocumentFragment();
   
   images.forEach((image) => {
-     const liElement = document.createElement('li');
-     const imgElement = document.createElement('img');
-     imgElement.className = 'gallery-box';
-     imgElement.alt = image.alt;
-     imgElement.src = image.url;
+    const liElement = document.createElement('li');
+    const imgElement = document.createElement('img');
+    imgElement.className = 'gallery-box';
+    imgElement.alt = image.alt;
+    imgElement.src = image.url;
   
-     liElement.append(imgElement)
-     gallery.append(liElement)
-  })
+    liElement.append(imgElement);
+    fragment.append(liElement);
+  });
+  
+  gallery.append(fragment);
