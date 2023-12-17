@@ -3,8 +3,11 @@ function getRandomHexColor() {
     .toString(16)
     .padStart(6, '0')}`;
 }
-const createBoxes = (amount, container) => {
+
+const createBoxes = (amount) => {
+  const boxesContainer = document.getElementById('boxes');
   const baseSize = 30;
+  const fragment = document.createDocumentFragment(); // Створюємо фрагмент для оптимізації додавання елементів
 
   for (let i = 0; i < amount; i++) {
     const box = document.createElement('div');
@@ -14,22 +17,23 @@ const createBoxes = (amount, container) => {
     box.style.height = `${size}px`;
     box.style.backgroundColor = getRandomHexColor();
 
-    container.appendChild(box);
+    fragment.appendChild(box);
   }
+
+  boxesContainer.appendChild(fragment);
 };
 
-const destroyBoxes = (container) => {
-  container.innerHTML = '';
+const destroyBoxes = () => {
+  const boxesContainer = document.getElementById('boxes');
+  boxesContainer.innerHTML = '';
 };
-
-const boxesContainer = document.getElementById('boxes');
 
 document.querySelector('[data-create]').addEventListener('click', () => {
   const inputAmount = document.querySelector('input');
   const amount = Number(inputAmount.value);
 
   if (amount >= 1 && amount <= 100) {
-    createBoxes(amount, boxesContainer);
+    createBoxes(amount);
     inputAmount.value = '';
   } else {
     alert('Please enter a number between 1 and 100.');
@@ -37,5 +41,5 @@ document.querySelector('[data-create]').addEventListener('click', () => {
 });
 
 document.querySelector('[data-destroy]').addEventListener('click', () => {
-  destroyBoxes(boxesContainer);
+  destroyBoxes();
 });
