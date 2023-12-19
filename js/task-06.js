@@ -1,45 +1,41 @@
-function getRandomHexColor() {
-  return `#${Math.floor(Math.random() * 16777215)
-    .toString(16)
-    .padStart(6, '0')}`;
-}
+    const getRandomHexColor = () => `#${Math.floor(Math.random() * 16777215).toString(16).padStart(6, 0)}`;
+    const input = document.querySelector('input');
+    const createBtn = document.querySelector('[data-create]');
+    const destroyBtn = document.querySelector('[data-destroy]');
+    const boxesContainer = document.getElementById('boxes');
 
-const createBoxes = (amount) => {
-  const boxesContainer = document.getElementById('boxes');
-  const baseSize = 30;
-  const fragment = document.createDocumentFragment(); // Створюємо фрагмент для оптимізації додавання елементів
+const createBoxes = () => {
+  const amount = input.valueAsNumber;
+
+  if (amount < 1 || amount > 100 || isNaN(amount)) {
+    alert('Please enter a number between 1 and 100.');
+    return;
+  }
+
+  let currentSize = 30;
 
   for (let i = 0; i < amount; i++) {
     const box = document.createElement('div');
-    const size = baseSize + i * 10;
-
-    box.style.width = `${size}px`;
-    box.style.height = `${size}px`;
+    box.classList.add('box');
+    box.style.width = `${currentSize}px`;
+    box.style.height = `${currentSize}px`;
     box.style.backgroundColor = getRandomHexColor();
+    boxesContainer.appendChild(box);
 
-    fragment.appendChild(box);
+    currentSize += 10;
   }
 
-  boxesContainer.appendChild(fragment);
+  input.value = '';
 };
 
-const destroyBoxes = () => {
-  const boxesContainer = document.getElementById('boxes');
-  boxesContainer.innerHTML = '';
-};
 
-document.querySelector('[data-create]').addEventListener('click', () => {
-  const inputAmount = document.querySelector('input');
-  const amount = Number(inputAmount.value);
+    const destroyBoxes = () => {
+      clearBoxes();
+    };
 
-  if (amount >= 1 && amount <= 100) {
-    createBoxes(amount);
-    inputAmount.value = '';
-  } else {
-    alert('Please enter a number between 1 and 100.');
-  }
-});
+    const clearBoxes = () => {
+      boxesContainer.innerHTML = '';
+    };
 
-document.querySelector('[data-destroy]').addEventListener('click', () => {
-  destroyBoxes();
-});
+    createBtn.addEventListener('click', createBoxes);
+    destroyBtn.addEventListener('click', destroyBoxes);
